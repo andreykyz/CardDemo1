@@ -25,8 +25,6 @@ public class CardDemo1 extends JFrame {
 	// ==============================================================
 	// constructor
 	public CardDemo1() {
-		// ... ClassLoader is where to get images from this .jar file.
-		ClassLoader cldr = this.getClass().getClassLoader();
 
 		int n = 0; // Which card.
 		int xPos = 0; // Where it should be placed initially.
@@ -41,7 +39,6 @@ public class CardDemo1 extends JFrame {
 				// ... Get the image from the images subdirectory.
 				String imagePath = "cards/" + faces.charAt(face)
 						+ suits.charAt(suit) + ".gif";
-				URL imageURL = cldr.getResource(imagePath);
 				ImageIcon img = new ImageIcon(imagePath);
 
 				// ... Create a card and add it to the deck.

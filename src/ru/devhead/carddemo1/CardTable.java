@@ -29,6 +29,7 @@ public class CardTable extends JComponent implements MouseListener,
 
 	private Card[] _deck; // Should really be in a model, but ...
 	private Card _currentCard = null; // Current selected card.
+	private Card tempCard;
 
 	// ==============================================================
 	// constructor
@@ -82,6 +83,9 @@ public class CardTable extends JComponent implements MouseListener,
 				_dragFromX = x - testCard.getX(); // how far from left
 				_dragFromY = x - testCard.getY(); // how far from top
 				_currentCard = testCard; // Remember what we're dragging.
+				tempCard = _deck[51];
+				_deck[51] = _currentCard;
+				_deck[crd] = tempCard;
 				break; // Stop when we find the first match.
 			}
 		}
