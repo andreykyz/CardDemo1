@@ -6,25 +6,20 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JComponent;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import javax.swing.*;
 
 public class CardTable extends JComponent implements MouseListener,
 		MouseMotionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// ================================================================
 	// constants
 	private static final Color BACKGROUND_COLOR = Color.GREEN;
 	private static final int TABLE_SIZE = 400; // Pixels.
-
-	// ===================================================================
-	// fields
-	// ... Initial image coords.
-	private int _initX = 0; // x coord - set from drag
-	private int _initY = 0; // y coord - set from drag
 
 	// ... Position in image of mouse press to make dragging look better.
 	private int _dragFromX = 0; // Displacement inside image of mouse press.
@@ -32,7 +27,6 @@ public class CardTable extends JComponent implements MouseListener,
 
 	private LinkedList<Card> _deck; // Should really be in a model, but ...
 	private Card _currentCard = null; // Current selected card.
-	private Card tempCard;
 
 	// ==============================================================
 	// constructor
