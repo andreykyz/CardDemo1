@@ -1,14 +1,19 @@
 package ru.devhead.carddemo1;
 
 import javax.swing.JFrame;
-import java.net.URL;
+import java.util.LinkedList;
+
 import javax.swing.*;
 
 public class CardDemo1 extends JFrame {
 	// ===================================================================
 	// fields
 
-	private static Card[] _deck = new Card[52];
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static LinkedList<Card>_deck;
 
 	// =====================================================================
 	// main
@@ -26,7 +31,8 @@ public class CardDemo1 extends JFrame {
 	// constructor
 	public CardDemo1() {
 
-		int n = 0; // Which card.
+		_deck = new LinkedList<Card>();
+		
 		int xPos = 0; // Where it should be placed initially.
 		int yPos = 0;
 
@@ -44,12 +50,11 @@ public class CardDemo1 extends JFrame {
 				// ... Create a card and add it to the deck.
 				Card card = new Card(img);
 				card.moveTo(xPos, yPos);
-				_deck[n] = card;
+				_deck.addFirst(card);
 
 				// ... Update local vars for next card.
 				xPos += 5;
 				yPos += 4;
-				n++;
 			}
 		}
 	}

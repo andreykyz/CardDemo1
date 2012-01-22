@@ -7,6 +7,9 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JComponent;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import javax.swing.*;
 
 public class CardTable extends JComponent implements MouseListener,
@@ -27,13 +30,13 @@ public class CardTable extends JComponent implements MouseListener,
 	private int _dragFromX = 0; // Displacement inside image of mouse press.
 	private int _dragFromY = 0;
 
-	private Card[] _deck; // Should really be in a model, but ...
+	private LinkedList<Card> _deck; // Should really be in a model, but ...
 	private Card _currentCard = null; // Current selected card.
 	private Card tempCard;
 
 	// ==============================================================
 	// constructor
-	public CardTable(Card[] deck) {
+	public CardTable(LinkedList<Card> deck) {
 		_deck = deck; // Should be passed a model.
 
 		// ... Initialize graphics
@@ -57,8 +60,9 @@ public class CardTable extends JComponent implements MouseListener,
 
 		// ... Display the cards, starting with the first array element.
 		// The array order defines the z-axis depth.
-		for (Card c : _deck) {
-			c.draw(g, this);
+		Iterator<Card> _deckIter = _deck.descendingIterator();
+		while (_deckIter.hasNext()) {
+			_deckIter.next().draw(g, this);
 		}
 	}
 
@@ -76,16 +80,16 @@ public class CardTable extends JComponent implements MouseListener,
 
 		// ... Find card image this is in. Check from top down.
 		_currentCard = null; // Assume not in any image.
-		for (int crd = _deck.length - 1; crd >= 0; crd--) {
-			Card testCard = _deck[crd];
+		for (Card testCard: _deck) {
+//			Card testCard = _deck[crd];
 			if (testCard.contains(x, y)) {
 				// ... Found, remember this card for dragging.
 				_dragFromX = x - testCard.getX(); // how far from left
 				_dragFromY = x - testCard.getY(); // how far from top
 				_currentCard = testCard; // Remember what we're dragging.
-				tempCard = _deck[51];
-				_deck[51] = _currentCard;
-				_deck[crd] = tempCard;
+				_deck.remove(testCard);
+				_deck.addFirst(testCard);
+				this.repaint(); 
 				break; // Stop when we find the first match.
 			}
 		}
